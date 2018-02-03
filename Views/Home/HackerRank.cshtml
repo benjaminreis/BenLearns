@@ -14,16 +14,23 @@ HackerRank
 @using(Html.BeginForm("Submit", "Home")) 
 {
 <br>
-<label>Elements:</label>
-@Html.TextBoxFor(m => m.sElements)
 
-<label>Count Elements:  </label>    
-@Html.TextBoxFor(m => m.sCountElements)
+  <div class="col-xs-4">
+  <label>Elements:</label>
 
+@Html.TextBoxFor(m => m.sElements, new {@class = "form-control",  @placeholder="1, 1, 2, 3, 5, 8"})
+</div>
+  <div class="col-xs-2">
+  <label>Count Elements:  </label>  
 
+@Html.TextBoxFor(m => m.sCountElements, new {@class = "form-control txtCountInput", @placeholder="eg: 6"})
 
-        
-<input type="submit" value="submit" />
+</div>
+
+<div class="col-xs-2" >       
+<input type="submit" value="submit" class="btn-primary" />
+    </div>
 }
+<br><br><br>
 
 <label>result: </label> @Model.sResult
