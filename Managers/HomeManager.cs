@@ -31,14 +31,21 @@ namespace BenLearns.Managers
 
         internal void ComputeMeanMedianMode(ref BenLearns.ViewModels.HackerRankViewModel model)
         {
-            model.CountElements = int.Parse(model.sCountElements);
-            model.Elements = model.sElements.Split(',').Select(int.Parse).ToList();
+            if (!string.IsNullOrWhiteSpace(model.sElements) && !string.IsNullOrWhiteSpace(model.sCountElements))
+            {
+                model.CountElements = int.Parse(model.sCountElements);
+                model.Elements = model.sElements.Split(',').Select(int.Parse).ToList();
 
-            string Mean = Factory.Algorithms.ComputeMean(model.Elements, model.CountElements).ToString();
-            string Median = Factory.Algorithms.ComputeMedian(model.Elements, model.CountElements).ToString();
-            string Mode = Factory.Algorithms.ComputeMode(model.Elements, model.CountElements).ToString();
+                string Mean = Factory.Algorithms.ComputeMean(model.Elements, model.CountElements).ToString();
+                string Median = Factory.Algorithms.ComputeMedian(model.Elements, model.CountElements).ToString();
+                string Mode = Factory.Algorithms.ComputeMode(model.Elements, model.CountElements).ToString();
 
-            model.sResult = $"Mean: {Mean}  Median: {Median}  Mode: {Mode}";
+                model.sResult = $"Mean: {Mean}  Median: {Median}  Mode: {Mode}";
+            }
+            else
+            {
+                model.sResult = "Please enter values";
+            }
 
 
         }
