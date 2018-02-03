@@ -10,6 +10,25 @@ namespace BenLearns.Controllers
 {
     public class HomeController : Controller
     {
+
+        private BenLearns.Factory _Factory { get; set; }
+        public BenLearns.Factory Factory
+        {
+            get
+            {
+                if(_Factory == null)
+                {
+                    _Factory = new BenLearns.Factory();
+                }
+                return _Factory;
+            }
+            set
+            {
+                _Factory = value;
+            }
+        }
+
+
         public IActionResult Index()
         {
             return View();
@@ -43,19 +62,11 @@ namespace BenLearns.Controllers
 
         public ActionResult Submit(BenLearns.ViewModels.HackerRankViewModel model)
         {
-            model.CountElements = int.Parse(model.sCountElements);
-                
-            model.Elements = model.sElements.Split(',').Select(int.Parse).ToList();
-            //TODO BEN do stuff
-
-            model.sResult = "Count: " + model.sCountElements + " Elements: " + model.sElements + " All Your Base are Belong to Us";
+            Factory.HomeManager.ComputeMeanMedianMode(ref model);
             return View("HackerRank", model);
         }
 
-        //public ActionResult Submit()
-        //{
-        //    return View();
-        //}
+
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
