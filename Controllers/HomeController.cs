@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using BenLearns.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BenLearns.Controllers
 {
@@ -56,12 +57,14 @@ namespace BenLearns.Controllers
         public ActionResult HackerRank()
         {
             var model = new ViewModels.HackerRankViewModel();
+            model.ProblemTypes = GetProblems();
             return View(model);
         }
 
 
         public ActionResult Submit(BenLearns.ViewModels.HackerRankViewModel model)
         {
+            var temp = model.SelectedProblemId;
             Factory.HomeManager.ComputeMeanMedianMode(ref model);
             return View("HackerRank", model);
         }
@@ -70,6 +73,16 @@ namespace BenLearns.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        private IEnumerable<SelectListItem> GetProblems()
+        {
+            var problems = new List<SelectListItem>();
+              problems.Add(new SelectListItem {Value = "0", Text = "Statistics:  Mean, Median Mode"});
+            problems.Add(new SelectListItem { Value = "1", Text = "Statistics:  Standard Deviation" });
+
+
+            return new SelectList(problems, "Value", "Text");
         }
     }
 }

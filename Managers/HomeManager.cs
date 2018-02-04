@@ -49,5 +49,17 @@ namespace BenLearns.Managers
 
 
         }
+
+        internal void ComputeStandardDeviation(ref BenLearns.ViewModels.HackerRankViewModel model)
+        {
+            if (!string.IsNullOrWhiteSpace(model.sElements) && !string.IsNullOrWhiteSpace(model.sCountElements))
+            {
+
+                var Mean = Factory.Algorithms.ComputeMean(model.Elements, model.CountElements);
+
+
+            }
+        }
+
     }
 }

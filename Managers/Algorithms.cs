@@ -63,6 +63,21 @@ namespace BenLearns.Managers
             return Mode;
         }
 
+        internal double ComputeStandardDeviation(List<int> nums, int count)
+        {
+            var Mean = ComputeMean(nums, count);
+
+            double SumMeans = new double();
+
+            foreach(int num in nums)
+            {
+                SumMeans += Math.Pow((num - Mean), 2);
+            }
+
+            return Math.Pow((SumMeans / count), .5);
+
+        }
+
 
         #endregion
 

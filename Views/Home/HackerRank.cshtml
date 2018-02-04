@@ -14,7 +14,11 @@ HackerRank
 @using(Html.BeginForm("Submit", "Home")) 
 {
 <br>
-
+  <div class="col-xs-12">
+  <div class="dropdown-menu">
+@Html.DropDownListFor(m => m.SelectedProblemId, Model.ProblemTypes)
+        </div>
+</div>
   <div class="col-xs-4">
   <label>Elements:</label>
 
@@ -31,6 +35,6 @@ HackerRank
 <input type="submit" value="submit" class="btn-primary" />
     </div>
 }
-<br><br><br>
+<br><br><br><br><br>
 
 <label>result: </label> @Model.sResult
