@@ -14,11 +14,10 @@ HackerRank
 @using(Html.BeginForm("Submit", "Home")) 
 {
 <br>
-  <div class="col-xs-12">
-  <div class="dropdown-menu">
-@Html.DropDownListFor(m => m.SelectedProblemId, Model.ProblemTypes)
-        </div>
-</div>
+  <div class=" col-xs-4">
+@Html.DropDownListFor(m => m.SelectedProblemId, Model.ProblemTypes, new {@class = "form-control"})
+  </div>
+  <br><br>
   <div class="col-xs-4">
   <label>Elements:</label>
 
@@ -27,7 +26,7 @@ HackerRank
   <div class="col-xs-2">
   <label>Count Elements:  </label>  
 
-@Html.TextBoxFor(m => m.sCountElements, new {@class = "form-control txtCountInput", @placeholder="eg: 6"})
+@Html.TextBoxFor(m => m.sCountElements, new {@class = "form-control", @placeholder="eg: 6"})
 
 </div>
 

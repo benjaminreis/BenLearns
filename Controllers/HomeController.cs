@@ -58,15 +58,31 @@ namespace BenLearns.Controllers
         {
             var model = new ViewModels.HackerRankViewModel();
             model.ProblemTypes = GetProblems();
+            model.SelectedProblemId = 0;
             return View(model);
         }
 
 
         public ActionResult Submit(BenLearns.ViewModels.HackerRankViewModel model)
         {
-            var temp = model.SelectedProblemId;
-            Factory.HomeManager.ComputeMeanMedianMode(ref model);
-            return View("HackerRank", model);
+            var choice = model.SelectedProblemId;
+
+            switch (choice)
+            {
+                case 0:
+                    model.sResult = "Please Select a problem.";
+                    return View("HackerRank", model);
+                case 1:
+                    Factory.HomeManager.ComputeMeanMedianMode(ref model);
+                    return View("HackerRank", model);
+                case 2:
+                    Factory.HomeManager.ComputeStandardDeviation(ref model);
+                    return View("HackerRank", model);
+
+                default: 
+                    model.sResult = "Please Select a problem.";
+                    return View("HackerRank", model);                    
+            }
         }
 
 
@@ -78,8 +94,10 @@ namespace BenLearns.Controllers
         private IEnumerable<SelectListItem> GetProblems()
         {
             var problems = new List<SelectListItem>();
-              problems.Add(new SelectListItem {Value = "0", Text = "Statistics:  Mean, Median Mode"});
-            problems.Add(new SelectListItem { Value = "1", Text = "Statistics:  Standard Deviation" });
+            problems.Add(new SelectListItem { Value = "0", Text = "Select a problem" });
+
+              problems.Add(new SelectListItem {Value = "1", Text = "Statistics:  Mean, Median Mode"});
+            problems.Add(new SelectListItem { Value = "2", Text = "Statistics:  Standard Deviation" });
 
 
             return new SelectList(problems, "Value", "Text");
