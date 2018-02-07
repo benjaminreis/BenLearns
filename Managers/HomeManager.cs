@@ -54,9 +54,19 @@ namespace BenLearns.Managers
         {
             if (!string.IsNullOrWhiteSpace(model.sElements) && !string.IsNullOrWhiteSpace(model.sCountElements))
             {
+                model.CountElements = int.Parse(model.sCountElements);
+                model.Elements = model.sElements.Split(',').Select(int.Parse).ToList();
 
                 var Mean = Factory.Algorithms.ComputeMean(model.Elements, model.CountElements);
-                //TODO BEN finish implementing this
+
+                double SumMeans = new double();
+
+                foreach (int num in model.Elements)
+                {
+                    SumMeans += Math.Pow((num - Mean), 2);
+                }
+
+                model.sResult = Math.Pow((SumMeans / model.CountElements), .5).ToString();
 
             }
         }

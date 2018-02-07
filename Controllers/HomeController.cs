@@ -67,6 +67,7 @@ namespace BenLearns.Controllers
         public ActionResult Submit(BenLearns.ViewModels.HackerRankViewModel model)
         {
             var choice = model.SelectedProblemId;
+            model.ProblemTypes = GetProblems();
 
             switch (choice)
             {

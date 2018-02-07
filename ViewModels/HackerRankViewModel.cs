@@ -13,6 +13,7 @@ namespace BenLearns.ViewModels
         public List<int> Elements { get; set; }
         public string sElements { get; set; }
         public string sResult { get; set; }
+        public string sTitle { get; set; }
 
 
         // Display Attribute will appear in the Html.LabelFor
