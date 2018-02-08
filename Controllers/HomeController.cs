@@ -59,7 +59,7 @@ namespace BenLearns.Controllers
             var model = new ViewModels.HackerRankViewModel();
             model.ProblemTypes = GetProblems();
             model.SelectedProblemId = 0;
-            model.sTitle = "This is the title";  //TODO BEN we need to set this based upon what they select from the dropdownlist.
+            model.sTitle = "Test for coding club";  //TODO BEN we need to set this based upon what they select from the dropdownlist.
             return View(model);
         }
 
