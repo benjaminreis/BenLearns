@@ -27,7 +27,7 @@ namespace BenLearns.Managers
             {
                 int middle = Count / 2;
 
-                Median = nums[middle - 1];
+                Median = nums[middle];
             }
 
 
