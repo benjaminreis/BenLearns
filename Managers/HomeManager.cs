@@ -31,10 +31,10 @@ namespace BenLearns.Managers
 
         internal void ComputeMeanMedianMode(ref BenLearns.ViewModels.HackerRankViewModel model)
         {
-            if (!string.IsNullOrWhiteSpace(model.sElements) && !string.IsNullOrWhiteSpace(model.sCountElements))
+            if (!string.IsNullOrWhiteSpace(model.sElements))
             {
-                model.CountElements = int.Parse(model.sCountElements);
                 model.Elements = model.sElements.Split(',').Select(int.Parse).ToList();
+                model.CountElements = model.Elements.Count();
 
                 string Mean = Factory.Algorithms.ComputeMean(model.Elements, model.CountElements).ToString();
                 string Median = Factory.Algorithms.ComputeMedian(model.Elements, model.CountElements).ToString();
@@ -52,10 +52,10 @@ namespace BenLearns.Managers
 
         internal void ComputeStandardDeviation(ref BenLearns.ViewModels.HackerRankViewModel model)
         {
-            if (!string.IsNullOrWhiteSpace(model.sElements) && !string.IsNullOrWhiteSpace(model.sCountElements))
+            if (!string.IsNullOrWhiteSpace(model.sElements))
             {
-                model.CountElements = int.Parse(model.sCountElements);
                 model.Elements = model.sElements.Split(',').Select(int.Parse).ToList();
+                model.CountElements = model.Elements.Count();
 
                 var Mean = Factory.Algorithms.ComputeMean(model.Elements, model.CountElements);
 
