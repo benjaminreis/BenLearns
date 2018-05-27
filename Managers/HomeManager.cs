@@ -33,7 +33,10 @@ namespace BenLearns.Managers
         {
             if (!string.IsNullOrWhiteSpace(model.sElements))
             {
+                //TODO BEN there is an issue with a "hanging" comma
                 model.Elements = model.sElements.Split(',').Select(int.Parse).ToList();
+
+                //TODO BEN need to validate the splitting of the string.
                 model.CountElements = model.Elements.Count();
 
                 string Mean = Factory.Algorithms.ComputeMean(model.Elements, model.CountElements).ToString();
@@ -54,6 +57,9 @@ namespace BenLearns.Managers
         {
             if (!string.IsNullOrWhiteSpace(model.sElements))
             {
+                //TODO BEN need to validate the splitting of the string.
+                //TODO BEN there is an issue with a "hanging" comma
+
                 model.Elements = model.sElements.Split(',').Select(int.Parse).ToList();
                 model.CountElements = model.Elements.Count();
 

@@ -1,0 +1,38 @@
+﻿@model IEnumerable<BenLearns.ViewModels.VolunteerViewModel>
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<table>
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Role</th>
+    </tr>
+
+@using(Html.BeginForm("Volunteers", "Home")) 
+{
+
+    <input type="submit" value="Get Volunteers" />
+
+}
+
+@if (Model != null)
+    {
+foreach(var volunteer in Model)
+{
+    
+    <tr>
+        <td>@volunteer.FirstName</td>
+        <td>@volunteer.LastName</td>           
+        <td>@volunteer.Role</td>
+    </tr>        
+}
+
+   }     
+</table>
+    
+
+

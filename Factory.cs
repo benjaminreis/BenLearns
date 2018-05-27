@@ -47,5 +47,48 @@ namespace BenLearns
             }
 
         }
+
+
+
+        private BenLearns.Managers.VolunteerManager _VolunteerManager { get; set; }
+
+        internal BenLearns.Managers.VolunteerManager VolunteerManager
+        {
+            get
+            {
+                if (_VolunteerManager == null)
+                {
+                    _VolunteerManager = new BenLearns.Managers.VolunteerManager();
+                }
+                return _VolunteerManager;
+
+            }
+            set
+            {
+                _VolunteerManager = value;
+            }
+
+        }
+
+
+        private BenLearns.Data.Volunteers _VolunteerData { get; set; }
+
+        internal BenLearns.Data.Volunteers VolunteerData
+        {
+            get
+            {
+                if (_VolunteerData == null)
+                {
+                    _VolunteerData = new BenLearns.Data.Volunteers();
+                }
+                return _VolunteerData;
+
+            }
+            set
+            {
+                _VolunteerData = value;
+            }
+
+        }
     }
 }

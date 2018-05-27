@@ -104,5 +104,27 @@ namespace BenLearns.Controllers
 
             return new SelectList(problems, "Value", "Text");
         }
+
+        public ActionResult Volunteers()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Volunteers(ViewModels.VolunteerViewModel model)
+        {
+            List<BenLearns.ViewModels.VolunteerViewModel> volunteers = new List<ViewModels.VolunteerViewModel>();
+
+            var a = new ViewModels.VolunteerViewModel();
+            a.FirstName = "ben";
+            a.LastName = "reis";
+            a.Role = "greeter";
+            volunteers.Add(a);
+
+            volunteers = Factory.VolunteerManager.GetVolunteers();
+
+            return View(volunteers);
+        }
+
     }
 }
