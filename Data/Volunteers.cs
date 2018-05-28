@@ -60,6 +60,15 @@ namespace BenLearns.Data
             return VolunteerRoles;
         }
 
+
+
+        internal void AddVolunteer(DataModels.Volunteer volunteer)
+        {
+            var sql = $"INSERT INTO Volunteers(FirstName, LastName, roleId) VALUES('{volunteer.FirstName}', '{volunteer.LastName}', {volunteer.RoleID.ToString()})";
+            //TODO BEN change this to a stored procedure, and maybe change it so it 
+            var temp = BuildDataTable(sql);
+        }
+
         private DataTable BuildDataTable(string sql)
         {
             MySqlConnection conn = new MySqlConnection(_sqlConn);
