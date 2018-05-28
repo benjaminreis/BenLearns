@@ -115,11 +115,12 @@ namespace BenLearns.Controllers
         {
             List<BenLearns.ViewModels.VolunteerViewModel> volunteers = new List<ViewModels.VolunteerViewModel>();
 
-            var a = new ViewModels.VolunteerViewModel();
-            a.FirstName = "ben";
-            a.LastName = "reis";
-            a.Role = "greeter";
-            volunteers.Add(a);
+            //TODO BEN clean this up
+            //var a = new ViewModels.VolunteerViewModel();
+            //a.FirstName = "ben";
+            //a.LastName = "reis";
+            //a.Role = "greeter";
+            //volunteers.Add(a);
 
             volunteers = Factory.VolunteerManager.GetVolunteers();
 

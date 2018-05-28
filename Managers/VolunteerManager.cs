@@ -31,9 +31,8 @@ namespace BenLearns.Managers
 
         internal List<BenLearns.ViewModels.VolunteerViewModel> GetVolunteers()
         {
-            Factory.VolunteerData.GetVolunteers();
+            return Factory.VolunteerDataHelper.GetVolunteers();
 
-            return null;
 
         }
 

@@ -90,5 +90,25 @@ namespace BenLearns
             }
 
         }
+
+        private Helpers.VolunteerDataHelper _VolunteerDataHelper { get; set; }
+
+        internal Helpers.VolunteerDataHelper VolunteerDataHelper
+        {
+            get
+            {
+                if (_VolunteerDataHelper == null)
+                {
+                    _VolunteerDataHelper = new Helpers.VolunteerDataHelper();
+                }
+                return _VolunteerDataHelper;
+
+            }
+            set
+            {
+                _VolunteerDataHelper = value;
+            }
+
+        }
     }
 }

@@ -15,6 +15,8 @@
 
   <ItemGroup>
     <Compile Remove="Controllers\BenLearnsController.cs" />
+    <Compile Remove="Models\eVolunteerRoles.cs" />
+    <Compile Remove="Models\eVolunteerRoles.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Views\BenLearns\Index.cshtml" />
@@ -24,5 +26,6 @@
     <Folder Include="Managers\" />
     <Folder Include="IMG\" />
     <Folder Include="Data\" />
+    <Folder Include="Helpers\" />
   </ItemGroup>
 </Project>
