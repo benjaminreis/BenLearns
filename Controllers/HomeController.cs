@@ -127,5 +127,13 @@ namespace BenLearns.Controllers
             return View(volunteers);
         }
 
+        [HttpPost]
+        public string AddVoluteer(ViewModels.VolunteerViewModel model)
+        {
+
+            return "";
+            
+        }
+
     }
 }

@@ -1,10 +1,26 @@
-﻿@model IEnumerable<BenLearns.ViewModels.VolunteerViewModel>
+﻿@model BenLearns.ViewModels.VolunteerViewModel
 
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
 }
+<head>
+    
+  <link rel="stylesheet" type="text/css" href="~/Styles/volunteers.css">
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
+
+    <style>
+        .hidden {
+    display: none
+}
+
+    </style>
+</head>
+
+
+
 <table>
     <tr>
         <th>First Name</th>
@@ -19,24 +35,58 @@
 
 }
 
-@if (Model != null)
-    {
-foreach(var volunteer in Model)
-{
-    
-    <tr>
-        <td>@volunteer.FirstName</td>
-        <td>@volunteer.LastName</td>           
-        <td>@volunteer.Role</td>
-    </tr>        
-}
-
-   }     
+  
 </table>
 
+<button id="addNewVolunteer">Add Volunteer!</button>
 
+
+
+<div id="dialog-addVolunteer" class="hidden">
+
+@using (Html.BeginForm("AddVolunteer", "Home", FormMethod.Post, new { id = "AddVolutneer" })) {
+<div>Add Volunteer:</div>
+   <div>First Name: </div>  @Html.TextBoxFor(m => m.FirstName)
+   <div>Last Name </div>    @Html.TextBoxFor(m => m.LastName)
+   <div>Role: </div>        @Html.TextBoxFor(m => m.Role)
+
+
+    
+
+}
+    
+</div>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js" ></script>
+  <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#dialog-addVolunteer").dialog({
+            modal: true,
+            autoOpen: false,
+            buttons: {
+                "Submit": function () {
+                    $('#AddVolunteer').submit();
+                },
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+    
+        $('#addNewVolunteer').click(function(){
+            $('#dialog-addVolunteer').removeClass('hidden');
+            $('#dialog-addVolunteer').dialog('open');
+            //return false;
+        
+        });
+    });
+
+
+</script>
 @*
 
+TODO BEN:  it seems as though jqueryui isnt gtting recognized in this view (but 2.2.4 of jquery is)
 Implement this jquery ui to post to a controller method, so i can add a new volunteer
 https://stackoverflow.com/questions/8556008/asp-net-mvc-3-jquery-ui-dialog-form?rq=1
 
