@@ -24,10 +24,10 @@ namespace Helpers
         }
 
         //TODO BEN Maybe add searching/filtering based upon names, roles, etc
-        internal List<SingleVolunteerViewModel> GetVolunteers()
+        internal List<SingleVolunteerViewModel> GetVolunteers(string FirstName, string LastName, string Role)
         {
 
-            var Volunteers = Factory.VolunteerData.GetVolunteers();
+            var Volunteers = Factory.VolunteerData.GetVolunteers(FirstName, LastName, Role);
 
 
             return ParseVolunteers(Volunteers);

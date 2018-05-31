@@ -29,11 +29,11 @@ namespace BenLearns.Managers
 
 
 
-        internal List<BenLearns.ViewModels.SingleVolunteerViewModel> GetVolunteers()
+        internal List<BenLearns.ViewModels.SingleVolunteerViewModel> GetVolunteers(ViewModels.VolunteerViewModel model)
         {
 
              //Factory.VolunteerData.AddVolunteer();  //TODO BEN implement this in its own function
-            return Factory.VolunteerDataHelper.GetVolunteers();
+            return Factory.VolunteerDataHelper.GetVolunteers(model.FirstName, model.LastName, model.Role);
 
 
         }

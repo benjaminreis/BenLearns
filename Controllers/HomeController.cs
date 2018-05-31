@@ -122,7 +122,7 @@ namespace BenLearns.Controllers
             //a.Role = "greeter";
             //volunteers.Add(a);
 
-            model.SearchResults = Factory.VolunteerManager.GetVolunteers();
+            model.SearchResults = Factory.VolunteerManager.GetVolunteers(model);
 
             return View(model);
         }

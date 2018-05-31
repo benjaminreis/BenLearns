@@ -4,6 +4,7 @@ using System.Data;
 using MySql.Data.MySqlClient;
 using System.Linq;
 using BenLearns.Models;
+using System.Text;
 
 namespace BenLearns.Data
 {
@@ -15,12 +16,39 @@ namespace BenLearns.Data
 
         private string _sqlConn = "server=sql9.freesqldatabase.com;user=sql9240011;database=sql9240011;port=3306;password=TeRNbIVvZP;SslMode=none";
 
-        internal List<DataModels.Volunteer> GetVolunteers()
+        internal List<DataModels.Volunteer> GetVolunteers(string FirstName, string LastName, string Role)
         {
             var temp = GetAllVolunteerRoles();  //TODO BEN Get rid of this
-            return GetAllVolunteers();
-
+            //return GetAllVolunteers();
+            return SearchVolunteers(FirstName, LastName, Role);
             //return null;
+        }
+
+        private List<DataModels.Volunteer> SearchVolunteers(string FirstName, string LastName, string Role)
+        {
+            StringBuilder sql = new StringBuilder("select V.id, V.FirstName, V.LastName, V.roleId, VR.Role, V.Active from Volunteers V join VolunteerRoles VR on VR.id = V.RoleId WHERE 1=1 ");
+            if (!string.IsNullOrWhiteSpace(FirstName))
+            {
+                sql.Append($"AND V.FirstName = '{FirstName}' ");
+            }
+            if (!string.IsNullOrWhiteSpace(LastName))
+            {
+                sql.Append($"AND V.lastName = '{LastName}' ");
+            }
+            if (!string.IsNullOrWhiteSpace(Role))
+            {
+                sql.Append($"AND VR.Role = '{Role}' ");
+            }
+
+            sql.Append($"Limit 0,100;");
+
+            DataTable dataTable = BuildDataTable(sql.ToString());
+            List<DataModels.Volunteer> volunteers = new List<DataModels.Volunteer>();
+            foreach (DataRow row in dataTable.Rows)
+            {
+                volunteers.Add(new DataModels.Volunteer(row));
+            }
+            return volunteers;
         }
 
         private List<DataModels.Volunteer> GetAllVolunteers()
