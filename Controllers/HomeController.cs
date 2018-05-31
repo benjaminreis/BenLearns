@@ -107,13 +107,13 @@ namespace BenLearns.Controllers
 
         public ActionResult Volunteers()
         {
-            return View();
+            return View(new ViewModels.VolunteerViewModel());
         }
 
         [HttpPost]
         public ActionResult Volunteers(ViewModels.VolunteerViewModel model)
         {
-            List<BenLearns.ViewModels.VolunteerViewModel> volunteers = new List<ViewModels.VolunteerViewModel>();
+           // List<BenLearns.ViewModels.VolunteerViewModel> volunteers = new List<ViewModels.VolunteerViewModel>();
 
             //TODO BEN clean this up
             //var a = new ViewModels.VolunteerViewModel();
@@ -122,9 +122,9 @@ namespace BenLearns.Controllers
             //a.Role = "greeter";
             //volunteers.Add(a);
 
-            volunteers = Factory.VolunteerManager.GetVolunteers();
+            model.SearchResults = Factory.VolunteerManager.GetVolunteers();
 
-            return View(volunteers);
+            return View(model);
         }
 
         [HttpPost]

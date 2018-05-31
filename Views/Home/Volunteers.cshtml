@@ -28,12 +28,17 @@
         <th>Role</th>
     </tr>
 
-@using(Html.BeginForm("Volunteers", "Home")) 
+@using(Html.BeginForm("Volunteers", "Home", FormMethod.Post)) 
 {
+       <div>First Name: </div>  @Html.TextBoxFor(m => m.FirstName)
+   <div>Last Name </div>    @Html.TextBoxFor(m => m.LastName)
+   <div>Role: </div>        @Html.TextBoxFor(m => m.Role)
 
     <input type="submit" value="Get Volunteers" />
 
 }
+@Html.Partial("_VolunteerResults", Model.SearchResults)
+
 
   
 </table>

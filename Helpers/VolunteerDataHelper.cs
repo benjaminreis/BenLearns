@@ -24,7 +24,7 @@ namespace Helpers
         }
 
         //TODO BEN Maybe add searching/filtering based upon names, roles, etc
-        internal List<VolunteerViewModel> GetVolunteers()
+        internal List<SingleVolunteerViewModel> GetVolunteers()
         {
 
             var Volunteers = Factory.VolunteerData.GetVolunteers();
@@ -35,9 +35,9 @@ namespace Helpers
 
 
 
-        private VolunteerViewModel ParseVolunteer(DataModels.Volunteer dbVolunteer)
+        private SingleVolunteerViewModel ParseVolunteer(DataModels.Volunteer dbVolunteer)
         {
-            VolunteerViewModel volunteer = new VolunteerViewModel
+            SingleVolunteerViewModel volunteer = new SingleVolunteerViewModel
             {
                 FirstName = dbVolunteer.FirstName,
                 LastName = dbVolunteer.LastName,
@@ -48,9 +48,9 @@ namespace Helpers
         }
 
 
-        private List<VolunteerViewModel> ParseVolunteers(List<DataModels.Volunteer> dbVolunteers)
+        private List<SingleVolunteerViewModel> ParseVolunteers(List<DataModels.Volunteer> dbVolunteers)
         {
-            List<VolunteerViewModel> Volunteers = new List<VolunteerViewModel>();
+            List<SingleVolunteerViewModel> Volunteers = new List<SingleVolunteerViewModel>();
 
             foreach(DataModels.Volunteer Volunteer in dbVolunteers)
             {
