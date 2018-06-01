@@ -107,7 +107,11 @@ namespace BenLearns.Controllers
 
         public ActionResult Volunteers()
         {
-            return View(new ViewModels.VolunteerViewModel());
+            var VolunteerViewModel = new ViewModels.VolunteerViewModel();
+            VolunteerViewModel.Roles = Factory.VolunteerDataHelper.GetAllRolesNames();
+            //ViewBag.Roles = Factory.VolunteerDataHelper.GetAllRolesNames();
+            //return View(new ViewModels.VolunteerViewModel());
+            return View(VolunteerViewModel);
         }
 
         [HttpPost]
@@ -122,6 +126,7 @@ namespace BenLearns.Controllers
             //a.Role = "greeter";
             //volunteers.Add(a);
 
+            model.Roles = Factory.VolunteerDataHelper.GetAllRolesNames();
             model.SearchResults = Factory.VolunteerManager.GetVolunteers(model);
 
             return View(model);

@@ -27,27 +27,29 @@
         <th>Last Name</th>
         <th>Role</th>
     </tr>
+    @using (Html.BeginForm("Volunteers", "Home", FormMethod.Post))
+    {
+        <div>First Name: </div> @Html.TextBoxFor(m => m.FirstName)
+        <div>Last Name </div> @Html.TextBoxFor(m => m.LastName)
+        <div>Role: </div>
+        @Html.DropDownListFor(m => m.Role, Model.Roles.Select(x => new SelectListItem { Value = x, Text = x }))
 
-@using(Html.BeginForm("Volunteers", "Home", FormMethod.Post)) 
-{
-       <div>First Name: </div>  @Html.TextBoxFor(m => m.FirstName)
-   <div>Last Name </div>    @Html.TextBoxFor(m => m.LastName)
-   <div>Role: </div>        @Html.TextBoxFor(m => m.Role)
-
-    <input type="submit" value="Get Volunteers" />
+<input type="submit" value="Get Volunteers" />
 
 }
-@Html.Partial("_VolunteerResults", Model.SearchResults)
+    @Html.Partial("_VolunteerResults", Model.SearchResults)
 
-
-  
 </table>
 
-<button id="addNewVolunteer">Add Volunteer!</button>
+
+
+               <button id="addNewVolunteer">Add Volunteer!</button>
 
 
 
-<div id="dialog-addVolunteer" class="hidden">
+
+
+               <div id="dialog-addVolunteer" class="hidden">
 
 @using (Html.BeginForm("AddVolunteer", "Home", FormMethod.Post, new { id = "AddVolutneer" })) {
 <div>Add Volunteer:</div>
@@ -67,25 +69,25 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $("#dialog-addVolunteer").dialog({
-            modal: true,
+       modal: true,
             autoOpen: false,
             buttons: {
-                "Submit": function () {
+               "Submit": function () {
                     $('#AddVolunteer').submit();
-                },
+               },
                 Cancel: function () {
                     $(this).dialog("close");
-                }
-            }
-        });
+               }
+           }
+       });
     
         $('#addNewVolunteer').click(function(){
             $('#dialog-addVolunteer').removeClass('hidden');
             $('#dialog-addVolunteer').dialog('open');
-            //return false;
-        
-        });
-    });
+           //return false;
+
+       });
+   });
 
 
 </script>

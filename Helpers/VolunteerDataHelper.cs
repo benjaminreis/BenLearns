@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using BenLearns.ViewModels;
+using System.Runtime.Caching;
+using System.Linq;
 
 namespace Helpers
 {
@@ -17,13 +19,16 @@ namespace Helpers
                 }
                 return _Factory;
             }
-            set 
+            set
             {
                 _Factory = value;
             }
         }
 
-        //TODO BEN Maybe add searching/filtering based upon names, roles, etc
+
+#region "Internal Methods"
+
+
         internal List<SingleVolunteerViewModel> GetVolunteers(string FirstName, string LastName, string Role)
         {
 
@@ -34,6 +39,17 @@ namespace Helpers
         }
 
 
+
+        internal List<string> GetAllRolesNames() 
+        {
+            var AllRoles = GetAllRoles().Select(x => x.Role).ToList();
+            AllRoles.Insert(0, "");
+            return AllRoles;
+         }
+
+#endregion
+
+        #region "Private methods"
 
         private SingleVolunteerViewModel ParseVolunteer(DataModels.Volunteer dbVolunteer)
         {
@@ -47,18 +63,37 @@ namespace Helpers
             return volunteer;
         }
 
+        private List<DataModels.VolunteerRole> GetAllRoles()
+        {
 
+            ObjectCache cache = MemoryCache.Default;
+            var Roles = cache.Get("AllRoles") as List<DataModels.VolunteerRole>;
+            if (Roles != null)
+            {
+                return Roles;
+            }
+
+            Roles = Factory.VolunteerData.GetRoles();
+            CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(360) };  // 6hrs
+
+            cache.Add("AllRoles", Roles, policy);
+            return Roles;
+
+        }
         private List<SingleVolunteerViewModel> ParseVolunteers(List<DataModels.Volunteer> dbVolunteers)
         {
             List<SingleVolunteerViewModel> Volunteers = new List<SingleVolunteerViewModel>();
 
-            foreach(DataModels.Volunteer Volunteer in dbVolunteers)
+            foreach (DataModels.Volunteer Volunteer in dbVolunteers)
             {
                 Volunteers.Add(ParseVolunteer(Volunteer));
             }
 
             return Volunteers;
         }
+
+        #endregion
+
 
     }
 }

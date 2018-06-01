@@ -24,6 +24,21 @@ namespace BenLearns.Data
             //return null;
         }
 
+
+        internal List<DataModels.VolunteerRole> GetRoles()
+        {
+            var sql = "SELECT id, Role FROM VolunteerRoles ORDER BY id ASC Limit 0,100;";
+            DataTable dataTable = BuildDataTable(sql);
+
+            List<DataModels.VolunteerRole> roles = new List<DataModels.VolunteerRole>();
+            foreach (DataRow row in dataTable.Rows)
+            {
+                roles.Add(new DataModels.VolunteerRole(row));
+            }
+            return roles;
+        }
+
+
         private List<DataModels.Volunteer> SearchVolunteers(string FirstName, string LastName, string Role)
         {
             StringBuilder sql = new StringBuilder("select V.id, V.FirstName, V.LastName, V.roleId, VR.Role, V.Active from Volunteers V join VolunteerRoles VR on VR.id = V.RoleId WHERE 1=1 ");
