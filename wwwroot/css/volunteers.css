@@ -1,0 +1,29 @@
+﻿
+.hidden {
+    display: none
+}
+
+
+.searchbox {
+    width: 160px;
+}
+
+.searchResultsColumn {
+    width: 100px;
+}
+
+.inlineblock {
+    display: inline-block;
+}
+
+#roleDropDown {
+    float: right;
+}
+
+#VolunteerSearchBTN {
+    margin-left: 10px;
+}
+
+#SearchForm {
+    margin-top: 20px;
+}

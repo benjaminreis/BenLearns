@@ -7,7 +7,7 @@
 }
 <head>
     
-  <link rel="stylesheet" type="text/css" href="~/Styles/volunteers.css">
+  <link rel="stylesheet" type="text/css" href="~/css/volunteers.css">
 
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
 
@@ -21,29 +21,39 @@
 
 
 
-<table>
+<table class="table table-hover">
+    <thead class="thead-light">     
     <tr>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Role</th>
+        <th class="searchResultsColumn">First Name</th>
+        <th class="searchResultsColumn">Last Name</th>
+        <th class="searchResultsColumn">Role</th>
     </tr>
+    </thead>
+
+
     @using (Html.BeginForm("Volunteers", "Home", FormMethod.Post))
     {
-        <div>First Name: </div> @Html.TextBoxFor(m => m.FirstName)
-        <div>Last Name </div> @Html.TextBoxFor(m => m.LastName)
-        <div>Role: </div>
-        @Html.DropDownListFor(m => m.Role, Model.Roles.Select(x => new SelectListItem { Value = x, Text = x }))
 
-<input type="submit" value="Get Volunteers" />
 
-}
+
+
+    <div id="SearchForm">
+    <div class="col-sm-3"><label>First: </label>    @Html.TextBoxFor(m => m.FirstName)  </div>
+    <div class="col-sm-3"><label>Last: </label>  @Html.TextBoxFor(m => m.LastName)  </div>
+    <div class="col-sm-3 inlineblock"><label for="roleDropDown">Role: </label>@Html.DropDownListFor(m => m.Role, Model.Roles.Select(x => new SelectListItem { Value = x, Text = x}), new {@id="roleDropDown", @class="form-control searchbox" } ) 
+        </div>
+        <input type="submit" id="VolunteerSearchBTN" class="btn btn-sm col-sm-2" value="Search Volunteers" />
+        </div>
+
+    }
+
     @Html.Partial("_VolunteerResults", Model.SearchResults)
 
 </table>
 
 
 
-               <button id="addNewVolunteer">Add Volunteer!</button>
+    <button id="addNewVolunteer" class="btn btn-sm">Add Volunteer!</button>
 
 
 

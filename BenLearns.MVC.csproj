@@ -33,4 +33,7 @@
     <Folder Include="Helpers\" />
     <Folder Include="Styles\" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\css\volunteers.css" />
+  </ItemGroup>
 </Project>
