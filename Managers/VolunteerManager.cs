@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using MySql.Data.MySqlClient;
 
 namespace BenLearns.Managers
@@ -31,9 +32,8 @@ namespace BenLearns.Managers
 
         internal List<BenLearns.ViewModels.SingleVolunteerViewModel> GetVolunteers(ViewModels.VolunteerViewModel model)
         {
-
-             //Factory.VolunteerData.AddVolunteer();  //TODO BEN implement this in its own function
-            return Factory.VolunteerDataHelper.GetVolunteers(model.FirstName, model.LastName, model.Role);
+            //Code Golf :D
+            return Factory.VolunteerDataHelper.GetVolunteers(model.FirstName, model.LastName, model.Role).OrderBy(x=> x.LastName).ToList();
 
 
         }
