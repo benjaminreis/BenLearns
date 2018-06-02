@@ -14,7 +14,8 @@ namespace BenLearns.Data
         {
         }
 
-        private string _sqlConn = "server=sql9.freesqldatabase.com;user=sql9240011;database=sql9240011;port=3306;password=TeRNbIVvZP;SslMode=none";
+        //private string _sqlConn = "server=sql9.freesqldatabase.com;user=sql9240011;database=sql9240011;port=3306;password=TeRNbIVvZP;SslMode=none";
+        private string _sqlConn = "server=den1.mysql2.gear.host;user=benlearns;database=benlearns;port=3306;password=testdb123@;SslMode=none";
 
         internal List<DataModels.Volunteer> GetVolunteers(string FirstName, string LastName, string Role)
         {

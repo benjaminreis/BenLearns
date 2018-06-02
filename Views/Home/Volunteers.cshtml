@@ -59,48 +59,76 @@
 
 
 
-               <div id="dialog-addVolunteer" class="hidden">
+    <div id="dialog-addVolunteer" class="hidden">
+        @using (Html.BeginForm("AddVolunteer", "Home", FormMethod.Post, new { id = "AddVolutneer" }))
+    {
+        <div>Add Volunteer:</div>
+        <div>First Name: </div> @Html.TextBoxFor(m => m.FirstName, new { id = "txtFirstNameAdd" })
+        <div>Last Name </div> @Html.TextBoxFor(m => m.LastName, new { id = "txtLastNameAdd" })
+        <div>Role: </div>  @Html.DropDownListFor(m => m.Role, Model.Roles.Select(x => new SelectListItem { Value = x, Text = x }), new { @id = "ddlRoleAdd", @class = "form-control searchbox" })
 
-@using (Html.BeginForm("AddVolunteer", "Home", FormMethod.Post, new { id = "AddVolutneer" })) {
-<div>Add Volunteer:</div>
-   <div>First Name: </div>  @Html.TextBoxFor(m => m.FirstName)
-   <div>Last Name </div>    @Html.TextBoxFor(m => m.LastName)
-   <div>Role: </div>        @Html.TextBoxFor(m => m.Role)
 
 
-    
+
 
 }
-    
-</div>
+
+    </div>
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js" ></script>
   <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-<script type="text/javascript">
-    $(document).ready(function() {
-        $("#dialog-addVolunteer").dialog({
-       modal: true,
-            autoOpen: false,
-            buttons: {
-               "Submit": function () {
-                    $('#AddVolunteer').submit();
-               },
-                Cancel: function () {
-                    $(this).dialog("close");
-               }
-           }
-       });
-    
-        $('#addNewVolunteer').click(function(){
-            $('#dialog-addVolunteer').removeClass('hidden');
-            $('#dialog-addVolunteer').dialog('open');
-           //return false;
+  <script type="text/javascript">$(document).ready(function() {
+          $("#dialog-addVolunteer").dialog({
+              modal: true,
+              autoOpen: false,
+              buttons: {
+                  "Submit": function() {
+                      var volunteer = new Object();
+                      volunteer.FirstName = $('#txtFirstName').val();
+                      volunteer.LastName = $('#txtLastNameAdd').val();
+                      volunteer.Role = $('#ddlRoleAdd').val();
 
-       });
-   });
+                      if (volunteer != null) {
+                          $.ajax({
+                              type: "POST",
+                              url: "/Home/AddVolunteer",
+                              data: JSON.stringify(volunteer),
+                              contentType: "application/json; charset=utf-8",
+                              dataType: "json",
+                              success: function(response) {
+                                  if (response != null) {
+                                      alert("success!");
+                                  } else {
+                                      alert("Something went wrong");
+                                  }
+                              },
+                              failure: function(response) {
+                                  alert(response.responseText);
+                              },
+                              error: function(response) {
+                                  alert(response.responseText);
+                              }
+                          });
+
+                      });
+}
 
 
-</script>
+                            //$('#AddVolunteer').submit();
+                        },
+          Cancel: function() {
+              $(this).dialog("close");
+          }
+                    }
+                });
+
+$('#addNewVolunteer').click(function() {
+          $('#dialog-addVolunteer').removeClass('hidden');
+          $('#dialog-addVolunteer').dialog('open');
+          //return false;
+
+});
+});</script>
 @*
 
 TODO BEN:  it seems as though jqueryui isnt gtting recognized in this view (but 2.2.4 of jquery is)
