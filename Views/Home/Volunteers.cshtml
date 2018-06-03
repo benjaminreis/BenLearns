@@ -83,17 +83,25 @@
               autoOpen: false,
               buttons: {
                   "Submit": function() {
-                      var volunteer = new Object();
-                      volunteer.FirstName = $('#txtFirstName').val();
+                      var volunteer = {
+                          FirstName: $('#txtFirstNameAdd').val(),
+                          LastName: $('#txtLastNameAdd').val(),
+                          Role: $('#ddlRoleAdd').val()
+
+                      };
+
+
+                      @*new Object();
+                      volunteer.FirstName = $('#txtFirstNameAdd').val();
                       volunteer.LastName = $('#txtLastNameAdd').val();
-                      volunteer.Role = $('#ddlRoleAdd').val();
+                      vsolunteer.Role = $('#ddlRoleAdd').val();*@
 
                       if (volunteer != null) {
                           $.ajax({
                               type: "POST",
                               url: "/Home/AddVolunteer",
-                              data: JSON.stringify(volunteer),
-                              contentType: "application/json; charset=utf-8",
+                              data: volunteer,
+                              content: 'application/json; charset=utf-8',
                               dataType: "json",
                               success: function(response) {
                                   if (response != null) {
@@ -110,24 +118,23 @@
                               }
                           });
 
-                      });
-}
+                      };
+                  }
 
 
-                            //$('#AddVolunteer').submit();
-                        },
-          Cancel: function() {
-              $(this).dialog("close");
-          }
-                    }
-                });
+                  //$('#AddVolunteer').submit();
+              },
+              Cancel: function() {
+                  $(this).dialog("close");
+              }
+          });
 
-$('#addNewVolunteer').click(function() {
-          $('#dialog-addVolunteer').removeClass('hidden');
-          $('#dialog-addVolunteer').dialog('open');
-          //return false;
+          $('#addNewVolunteer').click(function() {
+              $('#dialog-addVolunteer').removeClass('hidden');
+              $('#dialog-addVolunteer').dialog('open');
+              //return false;
 
-});
+          });
 });</script>
 @*
 

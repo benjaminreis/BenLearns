@@ -1,0 +1,14 @@
+﻿
+Things to fix or implement 
+
+Big functionality:
+1.  Add volunteer
+2.  edit volunteer
+3.  delete volunteer
+4.  add/edit/delete/ volunteerRole
+
+
+Smaller pieces:
+1.  role dropdownlists need to have roleid as the value, and role name as the text.  Working with Id's will be easier.
+2.  Write AddVolunteer methods.
+3.  change ad-hoc queries to StoredProcedures in MySQL

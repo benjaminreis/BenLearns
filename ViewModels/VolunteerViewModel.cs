@@ -15,9 +15,15 @@ namespace BenLearns.ViewModels
         public string LastName { get; set; }
         public string Role { get; set; }
         public int RoleID { get; set; }
-
         public List<string> Roles { get; set; }
-
         public List<ViewModels.SingleVolunteerViewModel> SearchResults { get; set; }
+
+
+        public VolunteerViewModel()
+        {
+
+        }
     }
+
+
 }

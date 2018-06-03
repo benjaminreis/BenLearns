@@ -133,10 +133,10 @@ namespace BenLearns.Controllers
         }
 
         [HttpPost]
-        public string AddVoluteer(ViewModels.VolunteerViewModel model)
+        public JsonResult AddVolunteer(ViewModels.VolunteerViewModel volunteer)
         {
 
-            return "";
+            return Json("rturned!");
             
         }
 

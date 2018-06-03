@@ -31,6 +31,10 @@ namespace DataModels
 
         }
 
+        public Volunteer()
+        {
+            
+        }
 
     }
 
