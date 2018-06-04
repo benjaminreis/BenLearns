@@ -32,12 +32,27 @@ namespace BenLearns.Managers
 
         internal List<BenLearns.ViewModels.SingleVolunteerViewModel> GetVolunteers(ViewModels.VolunteerViewModel model)
         {
-            //Code Golf :D
-            return Factory.VolunteerDataHelper.GetVolunteers(model.FirstName, model.LastName, model.Role).OrderBy(x=> x.LastName).ToList();
 
+            return Factory.VolunteerDataHelper.GetVolunteers(model.FirstName, model.LastName, model.Role).OrderBy(x=> x.LastName).ToList();
 
         }
 
+
+        internal List<string> AddVolunteer(ViewModels.VolunteerViewModel model)
+        {
+           List<string> errors =  Factory.VolunteerDataHelper.ValidateVolunteer(model);
+            if (errors.Count > 0 )
+            {
+                return errors;
+            }
+            else 
+            {
+                //TODO BEN call AddVolunteer data stuff
+                return errors;
+            }
+
+                   
+        }
 
 
 

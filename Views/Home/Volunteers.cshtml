@@ -40,7 +40,7 @@
     <div id="SearchForm">
     <div class="col-sm-3"><label>First: </label>    @Html.TextBoxFor(m => m.FirstName)  </div>
     <div class="col-sm-3"><label>Last: </label>  @Html.TextBoxFor(m => m.LastName)  </div>
-    <div class="col-sm-3 inlineblock"><label for="roleDropDown">Role: </label>@Html.DropDownListFor(m => m.Role, Model.Roles.Select(x => new SelectListItem { Value = x, Text = x}), new {@id="roleDropDown", @class="form-control searchbox" } ) 
+    <div class="col-sm-3 inlineblock"><label for="roleDropDown">Role: </label>@Html.DropDownListFor(m => m.Role, Model.Roles.Select(x => new SelectListItem { Value = x.Role, Text = x.Role}), new {@id="roleDropDown", @class="form-control searchbox" } ) 
         </div>
         <input type="submit" id="VolunteerSearchBTN" class="btn btn-sm col-sm-2" value="Search Volunteers" />
         </div>
@@ -65,7 +65,7 @@
         <div>Add Volunteer:</div>
         <div>First Name: </div> @Html.TextBoxFor(m => m.FirstName, new { id = "txtFirstNameAdd" })
         <div>Last Name </div> @Html.TextBoxFor(m => m.LastName, new { id = "txtLastNameAdd" })
-        <div>Role: </div>  @Html.DropDownListFor(m => m.Role, Model.Roles.Select(x => new SelectListItem { Value = x, Text = x }), new { @id = "ddlRoleAdd", @class = "form-control searchbox" })
+        <div>Role: </div>  @Html.DropDownListFor(m => m.Role, Model.Roles.Select(x => new SelectListItem { Value = x.Id.ToString(), Text = x.Role }), new { @id = "ddlRoleAdd", @class = "form-control searchbox" })
 
 
 
@@ -77,7 +77,8 @@
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js" ></script>
   <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-  <script type="text/javascript">$(document).ready(function() {
+  <script type="text/javascript">
+$(document).ready(function() {
           $("#dialog-addVolunteer").dialog({
               modal: true,
               autoOpen: false,
@@ -86,7 +87,8 @@
                       var volunteer = {
                           FirstName: $('#txtFirstNameAdd').val(),
                           LastName: $('#txtLastNameAdd').val(),
-                          Role: $('#ddlRoleAdd').val()
+                          Role: $('#ddlRoleAdd option:selected').text(),
+                            RoleId: $('#ddlRoleAdd').val()
 
                       };
 
@@ -104,10 +106,17 @@
                               content: 'application/json; charset=utf-8',
                               dataType: "json",
                               success: function(response) {
-                                  if (response != null) {
-                                      alert("success!");
+                                  if (response != null && response.length > 0) {
+                                        var error = "";
+                                    response.forEach(item => {
+                                        error += item + "\n";
+                                    });
+                                    
+                                      alert(error);
+                                  } else if (response != null && response.length == 0) {
+                                      alert("Successfully added a Volunteer!");
                                   } else {
-                                      alert("Something went wrong");
+                                    alert("An Error happened");
                                   }
                               },
                               failure: function(response) {

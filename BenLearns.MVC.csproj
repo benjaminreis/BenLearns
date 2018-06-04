@@ -32,6 +32,7 @@
     <Folder Include="Data\" />
     <Folder Include="Helpers\" />
     <Folder Include="Styles\" />
+    <Folder Include="SQL\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\css\volunteers.css" />

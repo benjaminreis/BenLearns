@@ -10,6 +10,9 @@ namespace DataModels
         public string Role { get; set; }
 
 
+        public VolunteerRole()
+        {
+        }
 
         public VolunteerRole(DataRow dr)
         {

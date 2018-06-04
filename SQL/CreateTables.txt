@@ -1,0 +1,22 @@
+﻿CREATE TABLE `volunteers` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `FirstName` varchar(100) DEFAULT NULL,
+  `LastName` varchar(11) DEFAULT NULL,
+  `RoleId` int(11) unsigned NOT NULL,
+  `Active` tinyint(1) DEFAULT '1',
+  PRIMARY KEY (`id`),
+  KEY `id` (`id`),
+  KEY `Roles` (`RoleId`),
+  CONSTRAINT `Roles` FOREIGN KEY (`RoleId`) REFERENCES `volunteerroles` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+
+
+
+
+
+CREATE TABLE `volunteerroles` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `Role` varchar(100) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;

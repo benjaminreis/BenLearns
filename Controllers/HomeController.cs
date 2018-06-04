@@ -108,7 +108,9 @@ namespace BenLearns.Controllers
         public ActionResult Volunteers()
         {
             var VolunteerViewModel = new ViewModels.VolunteerViewModel();
-            VolunteerViewModel.Roles = Factory.VolunteerDataHelper.GetAllRolesNames();
+            VolunteerViewModel.Roles = Factory.VolunteerDataHelper.GetRoles();
+            VolunteerViewModel.Roles.Insert(0, new DataModels.VolunteerRole() { Role = "", Id = -1 });
+
             //ViewBag.Roles = Factory.VolunteerDataHelper.GetAllRolesNames();
             //return View(new ViewModels.VolunteerViewModel());
             return View(VolunteerViewModel);
@@ -126,7 +128,14 @@ namespace BenLearns.Controllers
             //a.Role = "greeter";
             //volunteers.Add(a);
 
-            model.Roles = Factory.VolunteerDataHelper.GetAllRolesNames();
+            model.Roles = Factory.VolunteerDataHelper.GetRoles();
+            //This is super hacky because the POSTing of the dropdownlistFor automatically grabs the 
+            //long RoleId = new long();
+            //if (!string.IsNullOrWhiteSpace(model.Role) && long.TryParse(model.Role, out RoleId))
+            //{
+            //    model.RoleID = RoleId;
+            //    model.Role = Factory.VolunteerDataHelper.GetRoleByID(RoleId).Role;
+            //}
             model.SearchResults = Factory.VolunteerManager.GetVolunteers(model);
 
             return View(model);
@@ -135,8 +144,8 @@ namespace BenLearns.Controllers
         [HttpPost]
         public JsonResult AddVolunteer(ViewModels.VolunteerViewModel volunteer)
         {
-
-            return Json("rturned!");
+            List<string> errors = Factory.VolunteerManager.AddVolunteer(volunteer);
+            return Json(errors);
             
         }
 

@@ -10,12 +10,12 @@ namespace BenLearns.ViewModels
     // You may need to install the Microsoft.AspNetCore.Http.Abstractions package into your project
     public class VolunteerViewModel
     {
-
+        
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Role { get; set; }
-        public int RoleID { get; set; }
-        public List<string> Roles { get; set; }
+        public long RoleID { get; set; }
+        public List<DataModels.VolunteerRole> Roles { get; set; }
         public List<ViewModels.SingleVolunteerViewModel> SearchResults { get; set; }
 
 

@@ -38,14 +38,62 @@ namespace Helpers
             return ParseVolunteers(Volunteers);
         }
 
-
-
-        internal List<string> GetAllRolesNames() 
+        internal List<DataModels.VolunteerRole> GetRoles()
         {
-            var AllRoles = GetAllRoles().Select(x => x.Role).ToList();
-            AllRoles.Insert(0, "");
+            List<DataModels.VolunteerRole> AllRoles = GetAllRoles();
+
+            //AllRoles.Insert(0, new DataModels.VolunteerRole() { Role = "", Id = -1 });
             return AllRoles;
-         }
+
+        }
+
+        internal DataModels.VolunteerRole GetRoleByID(long RoleId)
+        {
+
+            if (RoleId > 0)
+            {
+                var AllRoles = GetRoles();
+
+                var tempRole = AllRoles.Where(x => x.Id == RoleId).FirstOrDefault();
+                if (tempRole != null)
+                {
+                    return tempRole;
+                }
+                else 
+                {
+                    return new DataModels.VolunteerRole();    
+                }
+            }
+            else
+            {
+                return new DataModels.VolunteerRole();
+            }
+        }
+
+
+        internal List<string> ValidateVolunteer(VolunteerViewModel model)
+        {
+            List<string> errors = new List<string>();
+
+            if(string.IsNullOrWhiteSpace(model.FirstName))
+            {
+                errors.Add("First Name Required");
+
+            }
+            if (string.IsNullOrWhiteSpace(model.LastName))
+            {
+                errors.Add("Last Name Required");
+
+            }
+
+            if (string.IsNullOrWhiteSpace(model.Role))
+            {
+                errors.Add("Role Required");
+            }
+
+            return errors;
+        }
+
 
 #endregion
 

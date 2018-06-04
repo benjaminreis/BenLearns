@@ -12,7 +12,7 @@ namespace DataModels
 
         public string LastName { get; set; }
 
-        public int RoleID { get; set; }
+        public long RoleID { get; set; }
 
         public string Role { get; set; }
 
@@ -26,7 +26,7 @@ namespace DataModels
             this.FirstName = dr["FirstName"] != null ? dr["FirstName"].ToString() : "";
             this.LastName = dr["LastName"] != null ? dr["LastName"].ToString() : "";
             this.Role = dr["Role"] != null ? dr["Role"].ToString() : "None";
-            this.RoleID = int.Parse((dr["roleId"] != null ? dr["roleId"].ToString() : "1"));
+            this.RoleID = long.Parse((dr["roleId"] != null ? dr["roleId"].ToString() : "1"));
             this.Active = bool.Parse((dr["Active"] != null ? dr["Active"].ToString() : "1"));
 
         }
