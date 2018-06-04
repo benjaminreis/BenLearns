@@ -94,6 +94,15 @@ namespace Helpers
             return errors;
         }
 
+        internal List<string> AddVoluteer(VolunteerViewModel model)
+        {
+            List<string> messages = new List<string>();
+            DataModels.Volunteer dbVolunteer = ParseVolunteer(model);
+
+            //TODO BEN add a try catch here, and return something for the messages.
+            Factory.VolunteerData.AddVolunteer(dbVolunteer);
+            return messages;
+        }
 
 #endregion
 
@@ -109,6 +118,19 @@ namespace Helpers
                 Role = dbVolunteer.Role
             };
             return volunteer;
+        }
+
+        private DataModels.Volunteer ParseVolunteer(VolunteerViewModel modelVolunteer)
+        {
+            DataModels.Volunteer Volunteer = new DataModels.Volunteer
+            {
+                FirstName = modelVolunteer.FirstName,
+                LastName = modelVolunteer.LastName,
+                RoleID = modelVolunteer.RoleID,
+                Role = modelVolunteer.Role
+
+            };
+            return Volunteer;
         }
 
         private List<DataModels.VolunteerRole> GetAllRoles()
