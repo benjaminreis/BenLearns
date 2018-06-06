@@ -124,6 +124,21 @@ namespace BenLearns.Data
             return "Error";
         }
 
+        internal string AddRole(DataModels.VolunteerRole role)
+        {
+            var sql = $"INSERT INTO volunteerroles (Role) VALUES ('{role.Role}'); SELECT LAST_INSERT_ID()"; 
+            var DataTable = BuildDataTable(sql);
+            var obj = DataTable.Rows[0]["LAST_INSERT_ID()"];
+            if (obj != null)
+            {
+                return obj.ToString();
+            }
+
+            return "Error";
+        }
+
+
+
         private DataTable BuildDataTable(string sql)
         {
             MySqlConnection conn = new MySqlConnection(_sqlConn);

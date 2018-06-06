@@ -55,25 +55,21 @@
 
     <button id="addNewVolunteer" class="btn btn-sm">Add Volunteer!</button>
 
+    <button id="addNewRole" class="btn btn-sm">Add Role!</button>
 
 
 
 
     <div id="dialog-addVolunteer" class="hidden">
-        @using (Html.BeginForm("AddVolunteer", "Home", FormMethod.Post, new { id = "AddVolutneer" }))
-    {
         <div>Add Volunteer:</div>
         <div>First Name: </div> @Html.TextBoxFor(m => m.FirstName, new { id = "txtFirstNameAdd" })
         <div>Last Name </div> @Html.TextBoxFor(m => m.LastName, new { id = "txtLastNameAdd" })
         <div>Role: </div>  @Html.DropDownListFor(m => m.Role, Model.Roles.Select(x => new SelectListItem { Value = x.Id.ToString(), Text = x.Role }), new { @id = "ddlRoleAdd", @class = "form-control searchbox" })
 
-
-
-
-
-}
-
     </div>
+
+
+    
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js" ></script>
   <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
