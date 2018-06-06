@@ -111,10 +111,12 @@ $(document).ready(function() {
                                     response.forEach(item => {
                                         error += item + "\n";
                                     });
-                                    
+
                                       alert(error);
                                   } else if (response != null && response.length == 0) {
                                       alert("Successfully added a Volunteer!");
+                                        $("#dialog-addVolunteer").dialog("close");
+
                                   } else {
                                     alert("An Error happened");
                                   }

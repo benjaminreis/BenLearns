@@ -47,7 +47,8 @@ namespace BenLearns.Managers
             }
             else 
             {
-                //TODO BEN call AddVolunteer data stuff
+                List<string> tempErrors = Factory.VolunteerDataHelper.AddVoluteer(model);
+                errors.AddRange(tempErrors);   //Visual studio for Mac 2017 was being weird so i had to break this up into multiple lines.
                 return errors;
             }
 

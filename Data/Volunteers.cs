@@ -110,11 +110,18 @@ namespace BenLearns.Data
 
 
 
-        internal void AddVolunteer(DataModels.Volunteer volunteer)
+        internal string AddVolunteer(DataModels.Volunteer volunteer)
         {
-            var sql = $"INSERT INTO Volunteers(FirstName, LastName, roleId) VALUES('{volunteer.FirstName}', '{volunteer.LastName}', {volunteer.RoleID.ToString()})";
+            var sql = $"INSERT INTO Volunteers(FirstName, LastName, roleId) VALUES('{volunteer.FirstName}', '{volunteer.LastName}', {volunteer.RoleID.ToString()}); SELECT LAST_INSERT_ID(); ";
             //TODO BEN change this to a stored procedure, and maybe change it so it 
-            var temp = BuildDataTable(sql);
+            var DataTable = BuildDataTable(sql);
+            var obj = DataTable.Rows[0]["LAST_INSERT_ID()"];
+            if(obj != null)
+            {
+                return obj.ToString();
+            }
+
+            return "Error";
         }
 
         private DataTable BuildDataTable(string sql)

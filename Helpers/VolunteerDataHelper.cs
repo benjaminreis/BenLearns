@@ -100,7 +100,35 @@ namespace Helpers
             DataModels.Volunteer dbVolunteer = ParseVolunteer(model);
 
             //TODO BEN add a try catch here, and return something for the messages.
-            Factory.VolunteerData.AddVolunteer(dbVolunteer);
+            string value = "";
+            try
+            {
+                value = Factory.VolunteerData.AddVolunteer(dbVolunteer);
+
+            }
+            catch(Exception ex)
+            {
+                messages.Add("Error Adding Volunteer to Database: " + ex.Message);
+            }
+
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                messages.Add("Error Adding Volunteer");
+            }
+            else
+            {
+                int VolunteerId = new int();
+
+                if(!int.TryParse(value, out VolunteerId))
+                {
+                    messages.Add("Error Adding New Volunteer");
+                }
+                else if(VolunteerId <= 0)
+                {
+                    messages.Add("Volunteer not successfully added!");
+                }
+            }
+
             return messages;
         }
 
