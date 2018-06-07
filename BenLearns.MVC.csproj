@@ -37,5 +37,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\css\volunteers.css" />
+    <Content Remove="wwwroot\images\Ben.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="wwwroot\images\Ben.jpg" />
   </ItemGroup>
 </Project>
