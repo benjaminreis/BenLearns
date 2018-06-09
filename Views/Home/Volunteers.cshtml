@@ -90,7 +90,7 @@ $(document).ready(function() {
                     modal: true,
                     autoOpen: false,
                     buttons: {
-                        "Submit": function() {
+                        "Add": function() {
                             var volunteer = {
                                 FirstName: $('#txtFirstNameAdd').val(),
                                 LastName: $('#txtLastNameAdd').val(),
@@ -141,7 +141,6 @@ $(document).ready(function() {
                 $('#addNewVolunteer').click(function() {
                     $('#dialog-addVolunteer').removeClass('hidden');
                     $('#dialog-addVolunteer').dialog('open');
-                    //return false;
 
                 });
 
@@ -150,10 +149,18 @@ $(document).ready(function() {
                     modal: true,
                     autoOpen: false,
                     buttons: {
-                        "Submit": function() {
+                        "Add": function() {
+
+                            
                             var role = {
                                 FirstName: $('#txtRoleName').val(),
                             };
+
+                            if(role.FirstName === "")
+                            {
+                                alert("Please enter a role name!");
+                                return;
+                            }
 
                             var roles = $('#roleDropDown option');
                             var enteredRole = $('#txtRoleName').val();

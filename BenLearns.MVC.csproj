@@ -25,6 +25,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Views\BenLearns\Index.cshtml" />
+    <None Remove="IMG\Ben.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModels\" />
@@ -37,9 +38,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\css\volunteers.css" />
-    <Content Remove="wwwroot\images\Ben.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="wwwroot\images\Ben.jpg" />
+    <Content Include="IMG\Ben.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="wwwroot\images\Ben.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </Project>
