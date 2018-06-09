@@ -119,23 +119,11 @@ namespace BenLearns.Controllers
         [HttpPost]
         public ActionResult Volunteers(ViewModels.VolunteerViewModel model)
         {
-           // List<BenLearns.ViewModels.VolunteerViewModel> volunteers = new List<ViewModels.VolunteerViewModel>();
-
-            //TODO BEN clean this up
-            //var a = new ViewModels.VolunteerViewModel();
-            //a.FirstName = "ben";
-            //a.LastName = "reis";
-            //a.Role = "greeter";
-            //volunteers.Add(a);
 
             model.Roles = Factory.VolunteerDataHelper.GetRoles();
             //This is super hacky because the POSTing of the dropdownlistFor automatically grabs the 
             //long RoleId = new long();
-            //if (!string.IsNullOrWhiteSpace(model.Role) && long.TryParse(model.Role, out RoleId))
-            //{
-            //    model.RoleID = RoleId;
-            //    model.Role = Factory.VolunteerDataHelper.GetRoleByID(RoleId).Role;
-            //}
+
             model.SearchResults = Factory.VolunteerManager.GetVolunteers(model);
 
             return View(model);

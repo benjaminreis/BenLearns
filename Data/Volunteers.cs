@@ -30,7 +30,10 @@ namespace BenLearns.Data
         internal List<DataModels.VolunteerRole> GetRoles()
         {
             var sql = "SELECT id, Role FROM VolunteerRoles ORDER BY id ASC Limit 0,100;";
-            DataTable dataTable = BuildDataTableOLD(sql);
+            MySqlConnection conn = new MySqlConnection(_sqlConn);
+            MySqlCommand cmd = new MySqlCommand(sql, conn);
+
+            DataTable dataTable = BuildDataTable(cmd);
 
             List<DataModels.VolunteerRole> roles = new List<DataModels.VolunteerRole>();
             foreach (DataRow row in dataTable.Rows)
@@ -40,35 +43,6 @@ namespace BenLearns.Data
             return roles;
         }
 
-
-        //private List<DataModels.Volunteer> SearchVolunteers(string FirstName, string LastName, string Role)
-        //{
-        //    StringBuilder sql = new StringBuilder("select V.id, V.FirstName, V.LastName, V.roleId, VR.Role, V.Active from Volunteers V join VolunteerRoles VR on VR.id = V.RoleId WHERE 1=1 ");
-        //    var Cmd = new MySqlCommand();
-
-        //    if (!string.IsNullOrWhiteSpace(FirstName))
-        //    {
-        //        sql.Append($"AND V.FirstName = '{FirstName}' ");
-
-        //    }
-        //    if (!string.IsNullOrWhiteSpace(LastName))
-        //    {
-        //        sql.Append($"AND V.lastName = '{LastName}' ");
-        //    }
-        //    if (!string.IsNullOrWhiteSpace(Role))
-        //    {
-        //        sql.Append($"AND VR.Role = '{Role}' ");
-        //    }
-        //    sql.Append($"Limit 0,100;");
-
-        //    DataTable dataTable = BuildDataTable(sql.ToString());
-        //    List<DataModels.Volunteer> volunteers = new List<DataModels.Volunteer>();
-        //    foreach (DataRow row in dataTable.Rows)
-        //    {
-        //        volunteers.Add(new DataModels.Volunteer(row));
-        //    }
-        //    return volunteers;
-        //}
 
         private List<DataModels.Volunteer> SearchVolunteers(string FirstName, string LastName, string Role)
         {
@@ -126,7 +100,6 @@ namespace BenLearns.Data
 
             DataTable dataTable = BuildDataTable(cmd);
 
-            //List<DataModels.Volunteer> volunteers = dataTable.AsEnumerable().select(dr => DataModels.Volunteer(dr));
             List<DataModels.Volunteer> volunteers = new List<DataModels.Volunteer>();
             foreach(DataRow row in dataTable.Rows)
             {
@@ -140,9 +113,16 @@ namespace BenLearns.Data
 
         internal string AddVolunteer(DataModels.Volunteer volunteer)
         {
-            var sql = $"INSERT INTO Volunteers(FirstName, LastName, roleId) VALUES('{volunteer.FirstName}', '{volunteer.LastName}', {volunteer.RoleID.ToString()}); SELECT LAST_INSERT_ID(); ";
-            //TODO BEN change this to a stored procedure, and maybe change it so it 
-            var DataTable = BuildDataTableOLD(sql);
+            var sql = $"INSERT INTO Volunteers(FirstName, LastName, roleId) VALUES(?firstname, ?lastname, ?roleid); SELECT LAST_INSERT_ID(); ";
+            List<MySqlParameter> Parameters = new List<MySqlParameter>();
+
+            MySqlCommand cmd = new MySqlCommand(sql);
+
+            cmd.Parameters.AddWithValue("?firstname", volunteer.FirstName);
+            cmd.Parameters.AddWithValue("?lastname", volunteer.LastName);
+            cmd.Parameters.AddWithValue("?roleid", volunteer.RoleID);
+
+            var DataTable = BuildDataTable(cmd);
             var obj = DataTable.Rows[0]["LAST_INSERT_ID()"];
             if(obj != null)
             {
@@ -152,18 +132,7 @@ namespace BenLearns.Data
             return "Error";
         }
 
-        //internal string AddRole(DataModels.VolunteerRole role)
-        //{
-        //    var sql = $"INSERT INTO volunteerroles (Role) VALUES ('{role.Role}'); SELECT LAST_INSERT_ID()"; 
-        //    var DataTable = BuildDataTable(sql);
-        //    var obj = DataTable.Rows[0]["LAST_INSERT_ID()"];
-        //    if (obj != null)
-        //    {
-        //        return obj.ToString();
-        //    }
 
-        //    return "Error";
-        //}
 
         internal string AddRoleInjection(DataModels.VolunteerRole role)
         {
