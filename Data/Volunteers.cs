@@ -18,10 +18,7 @@ namespace BenLearns.Data
 
         internal List<DataModels.Volunteer> GetVolunteers(string FirstName, string LastName, string Role)
         {
-            var temp = GetAllVolunteerRoles();  //TODO BEN Get rid of this
-            //return GetAllVolunteers();
             return SearchVolunteers(FirstName, LastName, Role);
-            //return null;
         }
 
         internal void AddVolunteer(string FirstName, string LastName, int RoleID)
@@ -124,7 +121,10 @@ namespace BenLearns.Data
             conn.Open();
 
             string sql = "select V.id, V.FirstName, V.LastName, V.Active, V.roleId, VR.Role from Volunteers V join VolunteerRoles VR on VR.id = V.RoleId Limit 0,100;";
-            DataTable dataTable = BuildDataTableOLD(sql);
+            MySqlCommand cmd = new MySqlCommand(sql, conn);
+
+
+            DataTable dataTable = BuildDataTable(cmd);
 
             //List<DataModels.Volunteer> volunteers = dataTable.AsEnumerable().select(dr => DataModels.Volunteer(dr));
             List<DataModels.Volunteer> volunteers = new List<DataModels.Volunteer>();
@@ -136,24 +136,6 @@ namespace BenLearns.Data
 
             return volunteers;
         }
-
-
-
-        internal List<DataModels.VolunteerRole> GetAllVolunteerRoles()
-        {
-            string sql = "select Id, Role from VolunteerRoles order by id asc Limit 0,100";
-
-            List<DataModels.VolunteerRole> VolunteerRoles = new List<DataModels.VolunteerRole>();
-
-            DataTable dataTable = BuildDataTableOLD(sql);
-            foreach(DataRow row in dataTable.Rows)
-            {
-                VolunteerRoles.Add(new DataModels.VolunteerRole(row));
-            }
-
-            return VolunteerRoles;
-        }
-
 
 
         internal string AddVolunteer(DataModels.Volunteer volunteer)
