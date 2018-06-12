@@ -140,8 +140,9 @@ namespace BenLearns.Controllers
         [HttpPost]
         public JsonResult AddRole(string role)
         {
-            
-            return Json(role);
+
+            var result = Factory.VolunteerManager.AddRole(role);
+            return Json(result.ToString().ToLower());  //javascript wants lowercase boolean true/false values...
 
         }
     }
