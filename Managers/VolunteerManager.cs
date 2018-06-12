@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using MySql.Data.MySqlClient;
 
@@ -53,6 +54,23 @@ namespace BenLearns.Managers
             }
 
                    
+        }
+
+        internal bool AddRole(string role)
+        {
+            DataModels.VolunteerRole volunteerRole = new DataModels.VolunteerRole();
+            volunteerRole.Role = role;
+            string value = Factory.VolunteerData.AddRole(volunteerRole);
+
+            long id = new long();
+
+            if (!string.IsNullOrWhiteSpace(value) && (value.IndexOf("error", StringComparison.OrdinalIgnoreCase) >= 0) && (long.TryParse(value, out id)))
+            {
+                return true;
+            }
+            
+
+            return false;
         }
 
 

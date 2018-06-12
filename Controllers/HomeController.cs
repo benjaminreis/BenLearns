@@ -140,6 +140,7 @@ namespace BenLearns.Controllers
         [HttpPost]
         public JsonResult AddRole(string role)
         {
+            
             return Json(role);
 
         }

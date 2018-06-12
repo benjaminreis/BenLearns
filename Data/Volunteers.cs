@@ -134,7 +134,7 @@ namespace BenLearns.Data
 
 
 
-        internal string AddRoleInjection(DataModels.VolunteerRole role)
+        internal string AddRole(DataModels.VolunteerRole role)
         {
 
             var sql = $"INSERT INTO volunteerroles (Role) VALUES ('@role'); SELECT LAST_INSERT_ID()"; 
