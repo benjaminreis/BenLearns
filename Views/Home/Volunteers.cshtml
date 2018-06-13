@@ -83,141 +83,138 @@
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js" ></script>
   <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
- <script type="text/javascript">
+  <script type="text/javascript">$(document).ready(function() {
+          $("#dialog-addVolunteer").dialog({
+              modal: true,
+              autoOpen: false,
+              buttons: {
+                  "Add": function() {
+                      var volunteer = {
+                          FirstName: $('#txtFirstNameAdd').val(),
+                          LastName: $('#txtLastNameAdd').val(),
+                          Role: $('#ddlRoleAdd option:selected').text(),
+                          RoleId: $('#ddlRoleAdd').val()
+                      };
 
-$(document).ready(function() {
-                $("#dialog-addVolunteer").dialog({
-                    modal: true,
-                    autoOpen: false,
-                    buttons: {
-                        "Add": function() {
-                            var volunteer = {
-                                FirstName: $('#txtFirstNameAdd').val(),
-                                LastName: $('#txtLastNameAdd').val(),
-                                Role: $('#ddlRoleAdd option:selected').text(),
-                                RoleId: $('#ddlRoleAdd').val()
-                            };
+                      if (volunteer != null) {
+                          $.ajax({
+                              type: "POST",
+                              url: "/Home/AddVolunteer",
+                              data: volunteer,
+                              content: 'application/json; charset=utf-8',
+                              dataType: "json",
+                              success: function(response) {
+                                  if (response != null && response.length > 0) {
+                                      var error = "";
+                                      $.each(response, function(i, item) {
+                                          error += item + "\n";
+                                      });
 
-                            if (volunteer != null) {
-                                $.ajax({
-                                    type: "POST",
-                                    url: "/Home/AddVolunteer",
-                                    data: volunteer,
-                                    content: 'application/json; charset=utf-8',
-                                    dataType: "json",
-                                    success: function(response) {
-                                        if (response != null && response.length > 0) {
-                                            var error = "";
-                                            response.forEach(item => {
-                                                error += item + "\n";
-                                            });
+                                      alert(error);
+                                  } else if (response != null && response.length == 0) {
+                                      alert("Successfully added a Volunteer!");
+                                      $("#dialog-addVolunteer").dialog("close");
 
-                                            alert(error);
-                                        } else if (response != null && response.length == 0) {
-                                            alert("Successfully added a Volunteer!");
-                                            $("#dialog-addVolunteer").dialog("close");
+                                  } else {
+                                      alert("An Error happened");
+                                  }
+                              },
+                              failure: function(response) {
+                                  alert(response.responseText);
+                              },
+                              error: function(response) {
+                                  alert(response.responseText);
+                              }
+                          });
 
-                                        } else {
-                                            alert("An Error happened");
-                                        }
-                                    },
-                                    failure: function(response) {
-                                        alert(response.responseText);
-                                    },
-                                    error: function(response) {
-                                        alert(response.responseText);
-                                    }
-                                });
+                      };
+                  }
 
-                            };
-                        }
+              },
+              Cancel: function() {
+                  $(this).dialog("close");
+              }
+          });
 
-                    },
-                    Cancel: function() {
-                        $(this).dialog("close");
-                    }
-                });
+          $('#addNewVolunteer').click(function() {
+              $('#dialog-addVolunteer').removeClass('hidden');
+              $('#dialog-addVolunteer').dialog('open');
 
-                $('#addNewVolunteer').click(function() {
-                    $('#dialog-addVolunteer').removeClass('hidden');
-                    $('#dialog-addVolunteer').dialog('open');
-
-                });
+          });
 
 
-                $("#dialog-addRole").dialog({
-                    modal: true,
-                    autoOpen: false,
-                    buttons: {
-                        "Add": function() {
+          $("#dialog-addRole").dialog({
+              modal: true,
+              autoOpen: false,
+              buttons: {
+                  "Add": function() {
 
-                            
-                            var role = {
-                                FirstName: $('#txtRoleName').val(),
-                            };
 
-                            if(role.FirstName === "")
-                            {
-                                alert("Please enter a role name!");
-                                return;
-                            }
+                      var role = {
+                          FirstName: $('#txtRoleName').val(),
+                      };
 
-                            var roles = $('#roleDropDown option');
-                            var enteredRole = $('#txtRoleName').val();
-                            for (var i = 0, n = roles.length; i < n; ++i) {
-                                if (roles[i].value == enteredRole) {
-                                    alert("This Role already exists!");
-                                    $(this).dialog("close");
-                                }
-                            }
+                      if (role.FirstName === "") {
+                          alert("Please enter a role name!");
+                          return;
+                      }
 
-                            //TODO BEN check if role already exists
+                      var roles = $('#roleDropDown option');
+                      var enteredRole = $('#txtRoleName').val();
+                      for (var i = 0, n = roles.length; i < n; ++i) {
+                          if (roles[i].value == enteredRole) {
+                              alert("This Role already exists!");
+                              $(this).dialog("close");
+                          }
+                      }
 
-                            if (role != null) {
-                                $.ajax({
-                                    type: "POST",
-                                    url: "/Home/AddRole",
-                                    data: role,
-                                    content: 'application/json; charset=utf-8',
-                                    dataType: "json",
-                                    success: function(response) {
-                                        if (response != null && response.length > 0) {
-                                            var error = "";
-                                            response.forEach(item => {
-                                                error += item + "\n";
-                                            });
+                      //TODO BEN check if role already exists
 
-                                            alert(error);
-                                        } else if (response != null && response.length == 0) {
-                                            alert("Successfully added a Role!");
-                                            $("#dialog-addRole").dialog("close");
+                      if (role != null) {
+                          $.ajax({
+                              type: "POST",
+                              url: "/Home/AddRole",
+                              data: role,
+                              content: 'application/json; charset=utf-8',
+                              dataType: "json",
+                              success: function(response) {
+                                  if (response != null && response.length > 0) {
+                                      var error = "";
+                                      $.each(response, function(i, item) {
+                                          error += item + "\n";
+                                      });
 
-                                        } else {
-                                            alert("An Error happened");
-                                        }
-                                    },
-                                    failure: function(response) {
-                                        alert(response.responseText);
-                                    },
-                                    error: function(response) {
-                                        alert(response.responseText);
-                                    }
-                                });
+                                      alert(error);
+                                  } else if (response != null && response.length == 0) {
+                                      alert("Successfully added a Role!");
+                                      $("#dialog-addRole").dialog("close");
 
-                            };
-                        }
+                                  } else {
+                                      alert("An Error happened");
+                                  }
+                              },
+                              failure: function(response) {
+                                  alert(response.responseText);
+                              },
+                              error: function(response) {
+                                  alert(response.responseText);
+                              }
+                          });
 
-                    },
-                    Cancel: function() {
-                        $(this).dialog("close");
-                    }
-                });
+                      };
+                  }
 
-                $('#addNewRole').click(function() {
-                    $('#dialog-addRole').removeClass('hidden');
-                    $('#dialog-addRole').dialog('open');
+              },
+              Cancel: function() {
+                  $(this).dialog("close");
+              }
+          });
 
-                });
+          $('#addNewRole').click(function() {
+              $('#dialog-addRole').removeClass('hidden');
+              $('#dialog-addRole').dialog('open');
+
+          });
 
 
 });</script>
