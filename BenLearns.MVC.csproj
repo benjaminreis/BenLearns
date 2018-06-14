@@ -37,7 +37,7 @@
     <Folder Include="SQL\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Remove="wwwroot\css\volunteers.css" />
+    <Content Remove="css\volunteers.css" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="IMG\Ben.jpg">
@@ -46,6 +46,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Update="wwwroot\images\Ben.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\css\volunteers.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
