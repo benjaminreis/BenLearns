@@ -10,6 +10,9 @@
     <PackageReference Include="jQuery.UI.Combined" Version="1.12.1" />
     <PackageReference Include="System.Runtime.Caching" Version="4.5.0" />
     <PackageReference Include="jQuery" Version="3.3.1" />
+    <PackageReference Include="React.AspNet" Version="3.3.0" />
+    <PackageReference Include="JavaScriptEngineSwitcher.ChakraCore" Version="2.4.20" />
+    <PackageReference Include="JavaScriptEngineSwitcher.ChakraCore.Native.osx-x64" Version="2.4.20" />
   </ItemGroup>
 
   <ItemGroup>
@@ -38,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Remove="css\volunteers.css" />
+    <Content Remove="wwwroot\js\Greeting.jsx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="IMG\Ben.jpg">
@@ -49,6 +53,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Update="wwwroot\css\volunteers.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\js\Greeting.jsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
