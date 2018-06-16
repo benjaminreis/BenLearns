@@ -55,11 +55,5 @@
     <Content Update="wwwroot\css\volunteers.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\js\Greeting.jsx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="wwwroot\js\Greeting.jsx" />
   </ItemGroup>
 </Project>
