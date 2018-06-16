@@ -2,7 +2,7 @@
   render() {
     return (
       <div className="commentBox">
-        Hello, world! I am a CommentBox.
+        Welcome to the Volunteer App!  This is rendered within React.JS!
       </div>
     );
   }
