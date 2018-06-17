@@ -42,6 +42,7 @@
   <ItemGroup>
     <Content Remove="css\volunteers.css" />
     <Content Remove="wwwroot\js\Greeting.jsx" />
+    <Content Remove="wwwroot\js\Greeting.jsx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="IMG\Ben.jpg">
@@ -55,5 +56,13 @@
     <Content Update="wwwroot\css\volunteers.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Update="wwwroot\js\Greeting.jsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="wwwroot\js\Greeting.jsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

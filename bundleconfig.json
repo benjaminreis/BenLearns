@@ -20,5 +20,11 @@
     },
     // Optionally generate .map file
     "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/js/Greeting.jsx",
+    "inputFiles": [
+      "wwwroot/js/Greeting.jsx"
+    ]
   }
 ]
