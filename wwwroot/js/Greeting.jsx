@@ -2,7 +2,9 @@
   render() {
     return (
       <div className="commentList">
-        Hello, world! I am a CommentList.
+        <Comment author="Daniel Lo Nigro">Hello ReactJS.NET World!</Comment>
+        <Comment author="Pete Hunt">This is one comment</Comment>
+        <Comment author="Jordan Walke">This is *another* comment</Comment>
       </div>
     );
   }
@@ -28,6 +30,27 @@ class CommentBox extends React.Component {
         <CommentForm />
       </div>
 
+    );
+  }
+}
+
+class Comment extends React.Component {
+    rawMarkup() {
+    const md = new Remarkable();
+    const rawMarkup = md.render(this.props.children.toString());
+    return { __html: rawMarkup };
+    }
+
+  render() {
+      
+
+    return (
+      <div className="comment">
+        <h2 className="commentAuthor">
+          {this.props.author}
+        </h2>
+        <span dangerouslySetInnerHTML={this.rawMarkup()} />
+      </div>
     );
   }
 }
