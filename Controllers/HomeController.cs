@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using BenLearns.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using models;
 
 namespace BenLearns.Controllers
 {
@@ -144,6 +145,36 @@ namespace BenLearns.Controllers
             var result = Factory.VolunteerManager.AddRole(role);
             return Json(result.ToString().ToLower());  //javascript wants lowercase boolean true/false values...
 
+        }
+
+        [Route("comments")]
+        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
+        public ActionResult Comments()
+        {
+
+
+            var _comments = new List<CommentModel>
+            {
+                new CommentModel
+                {
+                    Id = 1,
+                    Author = "Daniel Lo Nigro",
+                    Text = "Hello ReactJS.NET World!"
+                },
+                new CommentModel
+                {
+                    Id = 2,
+                    Author = "Pete Hunt",
+                    Text = "This is one comment"
+                },
+                new CommentModel
+                {
+                    Id = 3,
+                    Author = "Jordan Walke",
+                    Text = "This is *another* comment"
+                },
+            };
+            return Json(_comments);
         }
     }
 }
