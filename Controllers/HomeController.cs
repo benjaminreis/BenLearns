@@ -147,6 +147,13 @@ namespace BenLearns.Controllers
 
         }
 
+        public JsonResult DeleteVolunteer(int VolunteerId)
+        {
+
+            return Json("");
+
+        }
+
         [Route("comments")]
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public ActionResult Comments()

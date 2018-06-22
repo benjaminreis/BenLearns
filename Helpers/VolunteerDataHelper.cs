@@ -140,6 +140,7 @@ namespace Helpers
         {
             SingleVolunteerViewModel volunteer = new SingleVolunteerViewModel
             {
+                VolunteerID = dbVolunteer.Id,
                 FirstName = dbVolunteer.FirstName,
                 LastName = dbVolunteer.LastName,
                 RoleID = dbVolunteer.RoleID,

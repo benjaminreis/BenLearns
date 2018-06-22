@@ -38,6 +38,7 @@
     <Folder Include="Helpers\" />
     <Folder Include="Styles\" />
     <Folder Include="SQL\" />
+    <Folder Include="models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="css\volunteers.css" />
