@@ -74,7 +74,10 @@ namespace BenLearns.Managers
         }
 
 
-
+        internal string DeleteVolunteer(int VolunteerId)
+        {
+            return "TEST";
+        }
 
     }
 

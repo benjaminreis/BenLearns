@@ -21,11 +21,27 @@ namespace BenLearns.Data
             return SearchVolunteers(FirstName, LastName, Role);
         }
 
-        internal void AddVolunteer(string FirstName, string LastName, int RoleID)
-        {
-            
-        }
 
+        internal string DeleteVolunteer(int VolunteerId)
+        {
+            var sql = $"DELETE FROM Volunteers WHERE ID = ?VolunteerId; ";
+            List<MySqlParameter> Parameters = new List<MySqlParameter>();
+
+            MySqlCommand cmd = new MySqlCommand(sql);
+
+            cmd.Parameters.AddWithValue("?VolunteerId", VolunteerId);
+
+            var DataTable = BuildDataTable(cmd);
+            //var obj = DataTable.Rows[0]["LAST_INSERT_ID()"];
+            //if (obj != null)
+            //{
+            //    return obj.ToString();
+            //}
+
+            //TODO BEN see whats in the DataTabe to see if it has #Rows Affected
+            return "TEST";
+
+        }
 
         internal List<DataModels.VolunteerRole> GetRoles()
         {
@@ -42,6 +58,9 @@ namespace BenLearns.Data
             }
             return roles;
         }
+
+
+
 
 
         private List<DataModels.Volunteer> SearchVolunteers(string FirstName, string LastName, string Role)
