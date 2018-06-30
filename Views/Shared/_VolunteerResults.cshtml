@@ -3,17 +3,92 @@
 *@
 @model List<BenLearns.ViewModels.SingleVolunteerViewModel>
 @if (Model != null)
-    {
-foreach(var volunteer in Model)
 {
-    
-    <tr>
-        <td>@volunteer.FirstName</td>
-        <td>@volunteer.LastName</td>           
-        <td>@volunteer.Role</td>
-        <td>@volunteer.VolunteerID</td>
+    foreach (var volunteer in Model)
+    {
+        
+        <tr id="@volunteer.VolunteerID.ToString()_VolunteerRow">
+            <td class="FirstName">@volunteer.FirstName</td>
+            <td class="LastName">@volunteer.LastName</td>
+            <td class="Role">@volunteer.Role</td>
+            <td>@volunteer.VolunteerID</td>
+            <td><a href="#" data-target="#my_modal" data-toggle="modal" class="deleteVolunteerClicked" data-id="@volunteer.VolunteerID.ToString()">Delete Volunteer</a></td>
+            @*<%=Html.ActionLink("Delete ", "Modify", new {id = "1"})%>*@
 
-    </tr>        
+        </tr>
+    }
+
+<div id ="dialog-deleteVolunteer" class="hidden">
+<div>Delete Volunteer: </div> <div id="VolunteerID"></div>
+
+
+</div>
+
 }
+<script type="text/javascript">
 
-   }   
+$(function() {
+
+            var deleteID = $("#VolunteerID").val();
+
+            $("#dialog-deleteVolunteer").dialog({
+                modal: true,
+                autoOpen: false,
+                buttons: {
+                    "Delete": function() {
+                        @*var volunteer = {
+                            FirstName: $('#txtFirstNameAdd').val(),
+                            LastName: $('#txtLastNameAdd').val(),
+                            Role: $('#ddlRoleAdd option:selected').text(),
+                            RoleId: $('#ddlRoleAdd').val()
+                        };*@
+
+                        if (deleteID != null) {
+                            $.ajax({
+                                type: "POST",
+                                url: "/Home/DeleteVolunteer",
+                                data: deleteID,
+                                content: 'application/json; charset=utf-8',
+                                dataType: "json",
+                                success: function(response) {
+                                    if (response != null && response.length > 0) {
+                                        var error = "";
+                                        $.each(response, function(i, item) {
+                                            error += item + "\n";
+                                        });
+
+                                        alert(error);
+                                    } else if (response != null && response.length == 0) {
+                                        alert("Successfully added a Volunteer!");
+                                        $("#dialog-addVolunteer").dialog("close");
+
+                                    } else {
+                                        alert("An Error happened");
+                                    }
+                                },
+                                failure: function(response) {
+                                    alert(response.responseText);
+                                },
+                                error: function(response) {
+                                    alert(response.responseText);
+                                }
+                            });
+
+                        };
+                    }
+
+                },
+                Cancel: function() {
+                    $(this).dialog("close");
+                }
+            });
+
+        $(".deleteVolunteerClicked").click(function() {
+            $("#VolunteerID").val($(this).data('id'));
+    $("#VolunteerID").text($(this).data('id'));
+            $('#dialog-deleteVolunteer').removeClass('hidden');
+            $('#dialog-deleteVolunteer').dialog('open');
+
+        });
+
+});</script>

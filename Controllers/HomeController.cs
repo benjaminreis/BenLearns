@@ -147,10 +147,12 @@ namespace BenLearns.Controllers
 
         }
 
+        [HttpPost]
         public JsonResult DeleteVolunteer(int VolunteerId)
         {
 
-            return Json("");
+            var result = Factory.VolunteerManager.DeleteVolunteer(VolunteerId);
+            return Json(result);
 
         }
 
