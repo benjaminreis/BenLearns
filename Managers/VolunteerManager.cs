@@ -76,7 +76,9 @@ namespace BenLearns.Managers
 
         internal string DeleteVolunteer(int VolunteerId)
         {
-            return "TEST";
+
+            var result = Factory.VolunteerData.DeleteVolunteer(VolunteerId);
+            return result;
         }
 
     }
