@@ -19,7 +19,7 @@
     }
 
 <div id ="dialog-deleteVolunteer" class="hidden">
-<div>Delete Volunteer: </div> <div id="VolunteerID"></div>
+<div id="DeleteVolunteerLabel">Delete Volunteer: </div> <div id="VolunteerID"></div>
 
 
 </div>
@@ -74,13 +74,15 @@ $(function() {
                                 }
                             });
 
-                        };
-                    }
-
-                },
-                Cancel: function() {
+                     }
+                    },
+                    "Cancel": function() {
+                    $('#DeleteVolunteerLabel').val("Delete Volunteer: ");
                     $(this).dialog("close");
                 }
+
+                },
+
             });
 
         $(".deleteVolunteerClicked").click(function() {
@@ -88,7 +90,7 @@ $(function() {
     $("#VolunteerID").text($(this).data('id'));
             $('#dialog-deleteVolunteer').removeClass('hidden');
             $('#dialog-deleteVolunteer').dialog('open');
-
+            $('#DeleteVolunteerLabel').append($(this).data('id'));
         });
 
 });</script>
