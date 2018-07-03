@@ -16,6 +16,9 @@ namespace BenLearns.Data
 
         private string _sqlConn = "server=den1.mysql2.gear.host;user=benlearns;database=benlearns;port=3306;password=testdb123@;SslMode=none";
 
+
+        #region "Internal Methods"
+
         internal List<DataModels.Volunteer> GetVolunteers(string FirstName, string LastName, string Role)
         {
             return SearchVolunteers(FirstName, LastName, Role);
@@ -63,6 +66,79 @@ namespace BenLearns.Data
 
 
 
+
+
+
+        internal string AddVolunteer(DataModels.Volunteer volunteer)
+        {
+            var sql = $"INSERT INTO Volunteers(FirstName, LastName, roleId) VALUES(?firstname, ?lastname, ?roleid); SELECT LAST_INSERT_ID(); ";
+            List<MySqlParameter> Parameters = new List<MySqlParameter>();
+
+            MySqlCommand cmd = new MySqlCommand(sql);
+
+            cmd.Parameters.AddWithValue("?firstname", volunteer.FirstName);
+            cmd.Parameters.AddWithValue("?lastname", volunteer.LastName);
+            cmd.Parameters.AddWithValue("?roleid", volunteer.RoleID);
+
+            var DataTable = BuildDataTable(cmd);
+            var obj = DataTable.Rows[0]["LAST_INSERT_ID()"];
+            if (obj != null)
+            {
+                return obj.ToString();
+            }
+
+            return "Error";
+        }
+
+
+
+        internal string AddRole(DataModels.VolunteerRole role)
+        {
+
+            var sql = $"INSERT INTO volunteerroles (Role) VALUES ('@role'); SELECT LAST_INSERT_ID()";
+
+            var Cmd = new MySqlCommand(sql);
+            Cmd.Parameters.Add("@role", MySqlDbType.VarChar, 100);
+
+            var DataTable = BuildDataTable(Cmd);
+
+            var obj = DataTable.Rows[0]["LAST_INSERT_ID()"];
+            if (obj != null)
+            {
+                return obj.ToString();
+            }
+
+            return "Error";
+        }
+
+#endregion
+
+        #region "private methods"
+
+        #region "private DB calls"
+
+        private List<DataModels.Volunteer> GetAllVolunteers()
+        {
+
+            MySqlConnection conn = new MySqlConnection(_sqlConn);
+            conn.Open();
+
+            string sql = "select V.id, V.FirstName, V.LastName, V.Active, V.roleId, VR.Role from Volunteers V join VolunteerRoles VR on VR.id = V.RoleId Limit 0,100;";
+            MySqlCommand cmd = new MySqlCommand(sql, conn);
+
+
+            DataTable dataTable = BuildDataTable(cmd);
+
+            List<DataModels.Volunteer> volunteers = new List<DataModels.Volunteer>();
+            foreach (DataRow row in dataTable.Rows)
+            {
+                volunteers.Add(new DataModels.Volunteer(row));
+            }
+            conn.Close();
+
+            return volunteers;
+        }
+
         private List<DataModels.Volunteer> SearchVolunteers(string FirstName, string LastName, string Role)
         {
             StringBuilder sql = new StringBuilder("select V.id, V.FirstName, V.LastName, V.roleId, VR.Role, V.Active from Volunteers V join VolunteerRoles VR on VR.id = V.RoleId WHERE 1=1 ");
@@ -107,77 +183,12 @@ namespace BenLearns.Data
         }
 
 
-        private List<DataModels.Volunteer> GetAllVolunteers()
-        {
-
-            MySqlConnection conn = new MySqlConnection(_sqlConn);
-            conn.Open();
-
-            string sql = "select V.id, V.FirstName, V.LastName, V.Active, V.roleId, VR.Role from Volunteers V join VolunteerRoles VR on VR.id = V.RoleId Limit 0,100;";
-            MySqlCommand cmd = new MySqlCommand(sql, conn);
-
-
-            DataTable dataTable = BuildDataTable(cmd);
-
-            List<DataModels.Volunteer> volunteers = new List<DataModels.Volunteer>();
-            foreach(DataRow row in dataTable.Rows)
-            {
-                volunteers.Add(new DataModels.Volunteer(row));
-            }
-            conn.Close();
-
-            return volunteers;
-        }
-
-
-        internal string AddVolunteer(DataModels.Volunteer volunteer)
-        {
-            var sql = $"INSERT INTO Volunteers(FirstName, LastName, roleId) VALUES(?firstname, ?lastname, ?roleid); SELECT LAST_INSERT_ID(); ";
-            List<MySqlParameter> Parameters = new List<MySqlParameter>();
-
-            MySqlCommand cmd = new MySqlCommand(sql);
-
-            cmd.Parameters.AddWithValue("?firstname", volunteer.FirstName);
-            cmd.Parameters.AddWithValue("?lastname", volunteer.LastName);
-            cmd.Parameters.AddWithValue("?roleid", volunteer.RoleID);
-
-            var DataTable = BuildDataTable(cmd);
-            var obj = DataTable.Rows[0]["LAST_INSERT_ID()"];
-            if(obj != null)
-            {
-                return obj.ToString();
-            }
-
-            return "Error";
-        }
-
-
-
-        internal string AddRole(DataModels.VolunteerRole role)
-        {
-
-            var sql = $"INSERT INTO volunteerroles (Role) VALUES ('@role'); SELECT LAST_INSERT_ID()"; 
-
-            var Cmd = new MySqlCommand(sql);
-            Cmd.Parameters.Add("@role", MySqlDbType.VarChar, 100);
-
-            var DataTable = BuildDataTable(Cmd);
-
-            var obj = DataTable.Rows[0]["LAST_INSERT_ID()"];
-            if (obj != null)
-            {
-                return obj.ToString();
-            }
-
-            return "Error";
-        }
-
-
+#endregion
 
         private DataTable BuildDataTableOLD(string sql)
         {
             MySqlConnection conn = new MySqlConnection(_sqlConn);
-            conn.Open(); 
+            conn.Open();
             MySqlCommand cmd = new MySqlCommand(sql, conn);
             MySqlDataReader rdr = cmd.ExecuteReader();
 
@@ -203,5 +214,7 @@ namespace BenLearns.Data
 
             return dataTable;
         }
+
+        #endregion
     }
 }
