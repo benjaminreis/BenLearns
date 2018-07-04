@@ -60,8 +60,21 @@ namespace BenLearns.Managers
                 //TODO BEN need to validate the splitting of the string.
                 //TODO BEN there is an issue with a "hanging" comma
 
-                model.Elements = model.sElements.Split(',').Select(int.Parse).ToList();
-                model.CountElements = model.Elements.Count();
+
+                //TODO BEN test this regex magic 
+                Regex regex = new Regex(@"^\s*\d+(?:-\d+)?\s*(?:,\s*\d+(?:-\d+)?\s*)*$");
+                Match match = regex.Match(model.sElements);
+                if (match.success)
+                {
+                    model.Elements = model.sElements.Split(',').Select(int.Parse).ToList();
+                    model.CountElements = model.Elements.Count();
+
+                }
+                else
+                {
+                    model.sResult = "error formatting list of numbers";
+                    return;
+                }
 
                 var Mean = Factory.Algorithms.ComputeMean(model.Elements, model.CountElements);
 
